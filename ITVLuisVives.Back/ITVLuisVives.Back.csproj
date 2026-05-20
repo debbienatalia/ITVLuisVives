@@ -8,13 +8,17 @@
 
     <ItemGroup>
       <Folder Include="Config\" />
-      <Folder Include="Dto\" />
       <Folder Include="Errors\" />
       <Folder Include="Infrastructure\" />
+      <Folder Include="Mappers\" />
       <Folder Include="Repositories\" />
       <Folder Include="Services\" />
       <Folder Include="Storage\" />
       <Folder Include="Validators\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.8" />
     </ItemGroup>
 
 </Project>
