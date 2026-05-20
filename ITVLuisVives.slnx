@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="ITVLuisVives.Back/ITVLuisVives.Back.csproj" />
+  <Project Path="ITVLuisVives.Front/ITVLuisVives.Front.csproj" />
+  <Project Path="ITVLuisVives.Test/ITVLuisVives.Test.csproj" />
   <Project Path="ITVLuisVives/ITVLuisVives.csproj" />
 </Solution>
