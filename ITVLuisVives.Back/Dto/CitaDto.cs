@@ -10,5 +10,9 @@ public record CitaDto(
     string FechaInspeccion,
     string Estado,
     string Observaciones,
-    bool EsHoy
+    bool EsHoy,
+    string CreatedAt,
+    string UpdatedAt,
+    bool IsDeleted,
+    string? DeletedAt
 );
