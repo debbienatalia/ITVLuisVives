@@ -27,4 +27,10 @@
       <ProjectReference Include="..\ITVLuisVives.Back\ITVLuisVives.Back.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <None Include="..\itvluisvives.front\appsettings.json" Link="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>
