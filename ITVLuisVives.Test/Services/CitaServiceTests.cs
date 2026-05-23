@@ -7,7 +7,7 @@ using ITVLuisVives.Back.Enums;
 using ITVLuisVives.Back.Errors;
 using ITVLuisVives.Back.Models;
 using ITVLuisVives.Back.Repositories;
-using ITVLuisVives.Back.Services.Citas;
+using ITVLuisVives.Back.Services;
 using ITVLuisVives.Back.Validators;
 using Moq;
 
