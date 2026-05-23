@@ -5,7 +5,7 @@ using ITVLuisVives.Back.Errors;
 using ITVLuisVives.Back.Models;
 using ITVLuisVives.Back.Enums;
 
-namespace ITVLuisVives.Back.Services.Citas;
+namespace ITVLuisVives.Back.Services;
 
 /// <summary>
 ///     Define el contrato de negocio para el control, reserva y gestión de citas de la ITV.

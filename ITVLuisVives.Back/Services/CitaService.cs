@@ -7,7 +7,7 @@ using ITVLuisVives.Back.Enums;
 using ITVLuisVives.Back.Repositories;
 using ITVLuisVives.Back.Validators;
 
-namespace ITVLuisVives.Back.Services.Citas;
+namespace ITVLuisVives.Back.Services;
 
 /// <summary>
 ///     Implementación de los servicios de negocio de la Cita.

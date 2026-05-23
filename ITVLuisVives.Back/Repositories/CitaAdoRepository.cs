@@ -8,10 +8,10 @@ using ITVLuisVives.Back.Enums;
 using ITVLuisVives.Back.Errors;
 using ITVLuisVives.Back.Mappers;
 using ITVLuisVives.Back.Models;
-using ITVLuisVives.Back.Factories.Citas;
+using ITVLuisVives.Back.Factories;
 using Serilog;
 
-namespace ITVLuisVives.Back.Repositories.Citas;
+namespace ITVLuisVives.Back.Repositories;
 
 /// <summary>
 ///     Repositorio de citas que utiliza ADO.NET con SQLite.

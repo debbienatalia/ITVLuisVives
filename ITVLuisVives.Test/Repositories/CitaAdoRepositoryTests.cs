@@ -5,7 +5,7 @@ using FluentAssertions;
 using ITVLuisVives.Back.Entity;
 using ITVLuisVives.Back.Enums;
 using ITVLuisVives.Back.Models;
-using ITVLuisVives.Back.Repositories.Citas;
+using ITVLuisVives.Back.Repositories;
 using Microsoft.Data.Sqlite;
 
 namespace ITVLuisVives.Test.Repositories;

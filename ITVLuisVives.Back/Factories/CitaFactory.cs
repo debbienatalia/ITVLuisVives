@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ITVLuisVives.Back.Enums;
 using ITVLuisVives.Back.Models;
 
-namespace ITVLuisVives.Back.Factories.Citas;
+namespace ITVLuisVives.Back.Factories;
 
 /// <summary>
 ///     Factoría encargada de la instanciación segura de nuevos modelos de Cita.

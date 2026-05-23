@@ -7,7 +7,7 @@ using ITVLuisVives.Back.Enums;
 using ITVLuisVives.Back.Errors;
 using ITVLuisVives.Back.Mappers;
 using ITVLuisVives.Back.Models;
-using ITVLuisVives.Back.Factories.Citas;
+using ITVLuisVives.Back.Factories;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
