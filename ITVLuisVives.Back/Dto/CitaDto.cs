@@ -15,4 +15,19 @@ public record CitaDto(
     string UpdatedAt,
     bool IsDeleted,
     string? DeletedAt
-);
+)
+{
+    public CitaDto() : this(
+        string.Empty, 
+        string.Empty, 
+        string.Empty, 
+        string.Empty, 
+        string.Empty, 
+        string.Empty, 
+        false, 
+        string.Empty, 
+        string.Empty, 
+        false, 
+        null
+    ) { }
+}
