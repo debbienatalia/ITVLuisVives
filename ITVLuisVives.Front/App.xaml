@@ -1,9 +1,17 @@
 ﻿<Application x:Class="ITVLuisVives.Front.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ITVLuisVives.Front"
-             StartupUri="MainWindow.xaml">
+             xmlns:viewModels="clr-namespace:ITVLuisVives.Front.ViewModels"
+             xmlns:views="clr-namespace:ITVLuisVives.Front.Views">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type viewModels:CitasViewModel}">
+                <views:CitasWindow />
+            </DataTemplate>
+            
+            <DataTemplate DataType="{x:Type viewModels:AcercaDeViewModel}">
+                <views:AcercaDeWindow />
+            </DataTemplate>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
