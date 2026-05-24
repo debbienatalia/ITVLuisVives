@@ -89,7 +89,8 @@
                     <DropShadowEffect BlurRadius="15" Direction="270" ShadowDepth="1" Opacity="0.06"/>
                 </Border.Effect>
                 
-                <ContentControl Content="{Binding CurrentView}" Margin="20"/>
+                <ContentControl Content="{Binding CurrentView}" 
+                                Validation.ErrorTemplate="{x:Null}" />
             </Border>
         </Grid>
 

@@ -8,10 +8,6 @@
             <DataTemplate DataType="{x:Type viewModels:CitasViewModel}">
                 <views:CitasWindow />
             </DataTemplate>
-            
-            <DataTemplate DataType="{x:Type viewModels:AcercaDeViewModel}">
-                <views:AcercaDeWindow />
-            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

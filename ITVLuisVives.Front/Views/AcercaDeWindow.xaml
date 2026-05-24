@@ -1,12 +1,69 @@
 ﻿<Window x:Class="ITVLuisVives.Front.Views.AcercaDeWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:ITVLuisVives.Front.Views"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="AcercaDeWindow" Height="450" Width="800">
+        Title="Acerca de..." Height="360" Width="440"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        ShowInTaskbar="False"
+        Background="#F8F9FA"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        BorderBrush="#2C3E50"
+        BorderThickness="1.5">
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/> <RowDefinition Height="*"/>  <RowDefinition Height="50"/> </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#1E272E" Padding="15,0">
+            <TextBlock Text="ℹ️ Información del Sistema" Foreground="White" FontWeight="Bold" VerticalAlignment="Center" FontSize="13"/>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Border Width="50" Height="50" Background="#2C3E50" CornerRadius="25" Margin="0,0,0,15">
+                <TextBlock Text="ITV" Foreground="White" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+
+            <TextBlock Text="{Binding Proyecto}" FontSize="15" FontWeight="Bold" Foreground="#2C3E50" HorizontalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Text="{Binding Curso}" FontSize="11" Foreground="#7F8C8D" HorizontalAlignment="Center" Margin="0,2,0,20"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
+                <TextBlock Text="Desarrolladora: " FontWeight="SemiBold" Foreground="#4B5563"/>
+                <TextBlock Text="{Binding Autor}" Foreground="#1F2937"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4">
+                <TextBlock Text="Versión de Compilación: " FontWeight="SemiBold" Foreground="#4B5563"/>
+                <TextBlock Text="{Binding Version}" Foreground="#1F2937"/>
+            </StackPanel>
+
+            <Button Content="🌐 Ir al Repositorio del Proyecto" 
+                    Command="{Binding AbrirRepositorioCommand}"
+                    Background="#2F3542" Foreground="White" FontWeight="SemiBold" Margin="0,20,0,0" Padding="15,8" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+
+        <Border Grid.Row="2" Background="#F1F2F6" Padding="0,0,15,0">
+            <Button Content="Entendido" Click="Button_Click"
+                    Background="#E74C3C" Foreground="White" FontWeight="SemiBold" Width="90" Height="28" HorizontalAlignment="Right" VerticalAlignment="Center" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Border>
     </Grid>
 </Window>

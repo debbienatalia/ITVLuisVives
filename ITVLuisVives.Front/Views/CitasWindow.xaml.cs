@@ -1,8 +1,11 @@
-﻿using System.Windows;
+﻿using System.Windows.Controls;
 
 namespace ITVLuisVives.Front.Views;
 
-public partial class CitasWindow : Window
+/// <summary>
+/// Lógica de interacción para CitasWindow.xaml
+/// </summary>
+public partial class CitasWindow : UserControl
 {
     public CitasWindow()
     {
