@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ITVLuisVives.Back.Models;
@@ -79,5 +80,25 @@ public partial class CitasViewModel : ObservableValidator
         Dni = string.Empty;
         Matricula = string.Empty;
         Observaciones = string.Empty;
+    }
+    
+    // ====================================================================
+    // COMANDO PARA BORRAR
+    // ====================================================================
+    [RelayCommand]
+    private void EliminarCita(Cita citaParaEliminar)
+    {
+        if (citaParaEliminar == null) return;
+
+        var resultado = MessageBox.Show(
+            $"¿Estás seguro de que deseas eliminar la cita del vehículo {citaParaEliminar.VehiculoMatricula}?",
+            "Confirmar Eliminación", 
+            MessageBoxButton.YesNo, 
+            MessageBoxImage.Warning);
+
+        if (resultado == MessageBoxResult.Yes)
+        {
+            Citas.Remove(citaParaEliminar);
+        }
     }
 }

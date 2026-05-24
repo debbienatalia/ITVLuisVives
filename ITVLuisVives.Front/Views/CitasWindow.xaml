@@ -35,14 +35,16 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2.2*"/> <ColumnDefinition Width="1*"/>   </Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2.2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
 
             <DataGrid Grid.Column="0" 
                       ItemsSource="{Binding Citas}" 
                       AutoGenerateColumns="False" 
                       CanUserAddRows="False"
                       CanUserSortColumns="True"
-                      Background="White" BorderBrush="#E0E0E0" RowHeight="35"
+                      Background="White" BorderBrush="#E0E0E0" RowHeight="38"
                       GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#F0F0F0"
                       AlternatingRowBackground="#F9FAFC" Margin="0,0,20,0">
                 <DataGrid.ColumnHeaderStyle>
@@ -59,6 +61,25 @@
                     <DataGridTextColumn Header="DNI Propietario" Binding="{Binding Dni}" Width="110" CanUserSort="True"/>
                     <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="100" CanUserSort="True"/>
                     <DataGridTextColumn Header="Observaciones" Binding="{Binding Observaciones}" Width="*" CanUserSort="True"/>
+                    
+                    <DataGridTemplateColumn Header="Acciones" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="🗑️" 
+                                        Command="{Binding DataContext.EliminarCitaCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                        CommandParameter="{Binding}"
+                                        Background="#E74C3C" Foreground="White" FontWeight="Bold" Width="30" Height="26" HorizontalAlignment="Center" Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
