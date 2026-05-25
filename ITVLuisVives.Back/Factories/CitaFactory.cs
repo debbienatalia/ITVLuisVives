@@ -38,9 +38,9 @@ public static class CitaFactory
     {
         var listaSemilla = new List<Cita>
         {
-            CrearNueva("12345678A", "1234BBB", DateTime.Today.AddDays(1).AddHours(9), "Revisión periódica fija"),
-            CrearNueva("87654321B", "5678CXC", DateTime.Today.AddDays(2).AddHours(11).AddMinutes(30), "Fallo leve en luces fijo"),
-            CrearNueva("11111111C", "9012FFF", DateTime.Today.AddDays(3).AddHours(16), "Primera inspección técnica fija")
+            CrearNueva("12345678A", "1234BBB", DateTime.Today.AddDays(1).AddHours(9), "Revisión periódica"),
+            CrearNueva("87654321B", "5678CXC", DateTime.Today.AddDays(2).AddHours(11).AddMinutes(30), "Fallo leve en luces"),
+            CrearNueva("11111111C", "9012FFF", DateTime.Today.AddDays(3).AddHours(16), "Primera inspección técnica")
         };
 
         var random = new Random();
