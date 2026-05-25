@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using CSharpFunctionalExtensions;
+using ITVLuisVives.Back.Enums;
 using ITVLuisVives.Back.Errors;
 using ITVLuisVives.Back.Models;
 using SelectPdf;
@@ -20,6 +21,8 @@ public class ReportService : IReportService {
     private readonly ILogger _logger = Log.ForContext<ReportService>();
     private readonly string _reportDirectory;
 
+    public bool ForzarErrorInyeccion { get; set; } = false;
+
     public ReportService(string reportDirectory) {
         _reportDirectory = reportDirectory;
         _logger.Debug("Inicializando la clase ReportService con directorio {Directory}", _reportDirectory);
@@ -27,9 +30,19 @@ public class ReportService : IReportService {
 
     /// <inheritdoc />
     public Result<string, DomainError> GenerarFichaCitaHtml(Cita cita) {
-        _logger.Information("Generando ficha técnica HTML para la cita del vehículo {Matricula}", cita.VehiculoMatricula);
-
+        if (cita is null) {
+            _logger.Error("Intento de generar ficha HTML con una cita nula");
+            return Result.Failure<string, DomainError>(
+                new DomainError("Report.GenerationError", "Fallo al generar HTML: La cita no puede ser nula."));
+        }
+        
         try {
+            if (ForzarErrorInyeccion) {
+                throw new InvalidOperationException("Simulado para cobertura de excepciones en memoria.");
+            }
+
+            _logger.Information("Generando ficha técnica HTML para la cita del vehículo {Matricula}", cita.VehiculoMatricula);
+
             var fechaEmision = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
             var fechaCita = FormatDate(cita.FechaInspeccion);
             var horaCita = cita.FechaInspeccion.ToString("HH:mm");
@@ -100,19 +113,29 @@ public class ReportService : IReportService {
             return Result.Failure<string, DomainError>(
                 new DomainError("Report.GenerationError", $"Fallo al generar HTML: {ex.Message}"));
         }
-    }
+    } 
 
     /// <inheritdoc />
     public Result<string, DomainError> GenerarInformeCitasHtml(IEnumerable<Cita> citas) {
+        if (citas is null) {
+            _logger.Error("Intento de generar informe con una colección de citas nula");
+            return Result.Failure<string, DomainError>(
+                new DomainError("Report.GenerationError", "Fallo al generar informe: La lista de citas no puede ser nula."));
+        }
+
         _logger.Information("Generando informe HTML consolidado de citas");
 
         try {
+            if (ForzarErrorInyeccion) {
+                throw new InvalidOperationException("Simulado para cobertura de excepciones en memoria.");
+            }
+
             var lista = citas.ToList();
             var fecha = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
             
             var total = lista.Count;
-            var completadas = lista.Count(c => c.Estado.ToString().Equals("Favorable", StringComparison.OrdinalIgnoreCase));
-            var rechazadas = lista.Count(c => c.Estado.ToString().Equals("Desfavorable", StringComparison.OrdinalIgnoreCase));
+            var completadas = lista.Count(c => c.Estado == EstadoCita.Apta);
+            var rechazadas = lista.Count(c => c.Estado == EstadoCita.NoApta);
             var pendientes = total - (completadas + rechazadas);
 
             var html = $@"
