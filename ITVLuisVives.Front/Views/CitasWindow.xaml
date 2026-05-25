@@ -2,9 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1000"
+             d:DesignHeight="750" d:DesignWidth="1100"
              Background="Transparent">
 
     <UserControl.Resources>
@@ -24,29 +25,131 @@
 
     <Grid Margin="20">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/> 
+            <RowDefinition Height="*"/>    
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="0,0,0,15">
             <TextBlock Text="📅 Sistema Operativo de Citas — ITV Luis Vives" FontSize="20" FontWeight="Bold" Foreground="#2C3E50"/>
-            <TextBlock Text="Gestión de inspecciones en tiempo real con validación integrada" FontSize="12" Foreground="#7F8C8D" Margin="0,2,0,0"/>
+            <TextBlock Text="Gestión de inspecciones en tiempo real con validación integrada y en cascada" FontSize="12" Foreground="#7F8C8D" Margin="0,2,0,0"/>
         </StackPanel>
 
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2.2*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/> 
+                <RowDefinition Height="*"/>    
+                <RowDefinition Height="Auto"/> 
+            </Grid.RowDefinitions>
 
-            <DataGrid Grid.Column="0" 
+            <Grid Grid.Row="0" Margin="0,0,0,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/> 
+                    <ColumnDefinition Width="*"/> 
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Background="#FAFAFA" CornerRadius="6" BorderBrush="#E0E0E0" BorderThickness="1" Padding="15" Margin="0,0,10,0">
+                    <StackPanel>
+                        <TextBlock Text="🔍 Buscador de Citas" FontWeight="Bold" Margin="0,0,0,12" Foreground="#34495E" FontSize="13"/>
+                        
+                        <UniformGrid Columns="4">
+                            <StackPanel Margin="4,0">
+                                <TextBlock Text="DNI Propietario:" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D"/>
+                                <TextBox Text="{Binding BusquedaDni, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" Padding="5"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="4,0">
+                                <TextBlock Text="Matrícula:" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D"/>
+                                <TextBox Text="{Binding BusquedaMatricula, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" Padding="5"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="4,0">
+                                <TextBlock Text="Desde Fecha:" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="0,0,0,4"/>
+                                <DatePicker SelectedDate="{Binding BusquedaFechaDesde, Mode=TwoWay}"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="4,0">
+                                <TextBlock Text="Hasta Fecha:" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="0,0,0,4"/>
+                                <DatePicker SelectedDate="{Binding BusquedaFechaHasta, Mode=TwoWay}"/>
+                            </StackPanel>
+                        </UniformGrid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,4,0">
+                            <Button Content="Limpiar" Command="{Binding LimpiarFiltrosCommand}" Width="80" Height="28" Background="#BDC3C7" Foreground="#333" Margin="0,0,8,0" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                            <Button Content="Filtrar ⚡" Command="{Binding EjecutarBusquedaSincronaCommand}" Width="90" Height="28" Background="#2980B9" Foreground="White" FontWeight="Bold" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="1" Background="#FAFAFA" CornerRadius="6" BorderBrush="#E0E0E0" BorderThickness="1" Padding="15" Margin="10,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="➕ Registrar Nueva Inspección" FontWeight="Bold" Margin="0,0,0,12" Foreground="#34495E" FontSize="13"/>
+                        
+                        <UniformGrid Columns="5">
+                            <StackPanel Margin="2,0">
+                                <TextBlock Text="DNI Propietario:" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D"/>
+                                <TextBox Text="{Binding Dni, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Margin="0,4,0,0" Padding="5"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="4,0">
+                                <TextBlock Text="Matrícula:" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D"/>
+                                <TextBox Text="{Binding Matricula, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Margin="0,4,0,0" Padding="5"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="4,0">
+                                <TextBlock Text="Fecha Cita:" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D" Margin="0,0,0,4"/>
+                                <DatePicker SelectedDate="{Binding FechaInspeccion, Mode=TwoWay}" DisplayDateStart="{x:Static System:DateTime.Today}"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="4,0">
+                                <TextBlock Text="Hora (HH:mm):" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D"/>
+                                <TextBox Text="{Binding HoraCita, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Margin="0,4,0,0" Padding="5" ToolTip="Ejemplo: 14:30"/>
+                            </StackPanel>
+
+                            <StackPanel Margin="4,0">
+                                <TextBlock Text="Observaciones:" FontSize="10" FontWeight="SemiBold" Foreground="#7F8C8D"/>
+                                <TextBox Text="{Binding Observaciones, UpdateSourceTrigger=PropertyChanged}" Margin="0,4,0,0" Padding="5"/>
+                            </StackPanel>
+                        </UniformGrid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,4,0">
+                            <Button Content="Agendar Cita ➕" Command="{Binding AgregarCitaCommand}" Width="120" Height="28" Background="#2E7D32" Foreground="White" FontWeight="SemiBold" Cursor="Hand">
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <DataGrid Grid.Row="1" 
                       ItemsSource="{Binding Citas}" 
                       AutoGenerateColumns="False" 
                       CanUserAddRows="False"
                       CanUserSortColumns="True"
                       Background="White" BorderBrush="#E0E0E0" RowHeight="38"
                       GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#F0F0F0"
-                      AlternatingRowBackground="#F9FAFC" Margin="0,0,20,0">
+                      AlternatingRowBackground="#F9FAFC">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="#F1F2F6"/>
@@ -56,10 +159,10 @@
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Fecha/Hora" Binding="{Binding FechaInspeccion, StringFormat=\{0:dd/MM/yyyy HH:mm\}}" Width="130" CanUserSort="True"/>
-                    <DataGridTextColumn Header="Matrícula" Binding="{Binding VehiculoMatricula}" Width="100" CanUserSort="True"/>
-                    <DataGridTextColumn Header="DNI Propietario" Binding="{Binding Dni}" Width="110" CanUserSort="True"/>
-                    <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="100" CanUserSort="True"/>
+                    <DataGridTextColumn Header="Fecha/Hora" Binding="{Binding FechaInspeccion, StringFormat=\{0:dd/MM/yyyy HH:mm\}}" Width="140" CanUserSort="True"/>
+                    <DataGridTextColumn Header="Matrícula" Binding="{Binding VehiculoMatricula}" Width="110" CanUserSort="True"/>
+                    <DataGridTextColumn Header="DNI Propietario" Binding="{Binding Dni}" Width="130" CanUserSort="True"/>
+                    <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="110" CanUserSort="True"/>
                     <DataGridTextColumn Header="Observaciones" Binding="{Binding Observaciones}" Width="*" CanUserSort="True"/>
                     
                     <DataGridTemplateColumn Header="Acciones" Width="80">
@@ -83,34 +186,34 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Border Grid.Column="1" Background="#FAFAFA" CornerRadius="6" BorderBrush="#E0E0E0" BorderThickness="1" Padding="20">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="Nueva Inspección" FontSize="16" FontWeight="Bold" Foreground="#34495E" Margin="0,0,0,15"/>
-
-                        <TextBlock Text="DNI Propietario:" FontWeight="SemiBold" Foreground="#7F8C8D"/>
-                        <TextBox Text="{Binding Dni, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
-
-                        <TextBlock Text="Matrícula del Vehículo:" FontWeight="SemiBold" Foreground="#7F8C8D"/>
-                        <TextBox Text="{Binding Matricula, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}"/>
-
-                        <TextBlock Text="Observaciones Iniciales:" FontWeight="SemiBold" Foreground="#7F8C8D"/>
-                        <TextBox Text="{Binding Observaciones, UpdateSourceTrigger=PropertyChanged}" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
-
-                        <Button Content="Agendar Cita ➕" 
-                                Command="{Binding AgregarCitaCommand}"
-                                Background="#2E7D32" Foreground="White" FontWeight="SemiBold" Padding="10" Margin="0,10,0,0">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" CornerRadius="4">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                <Button Content="◀ Anterior" Command="{Binding RetrocederPaginaCommand}" IsEnabled="{Binding PuedeIrPaginaAnterior}" Width="90" Height="28" Background="#E1E4E8" Foreground="#2C3E50" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                
+                <Border Background="#2C3E50" CornerRadius="4" Padding="15,0" Margin="8,0" Height="28">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Página " Foreground="White" FontSize="12"/>
+                        <TextBlock Text="{Binding PaginaActual}" Foreground="White" FontWeight="Bold" FontSize="12"/>
                     </StackPanel>
-                </ScrollViewer>
-            </Border>
+                </Border>
+                
+                <Button Content="Siguiente ▶" Command="{Binding AvanzarPaginaCommand}" IsEnabled="{Binding PuedeIrPaginaSiguiente}" Width="90" Height="28" Background="#E1E4E8" Foreground="#2C3E50" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

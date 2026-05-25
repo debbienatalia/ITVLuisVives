@@ -1,12 +1,13 @@
 ﻿using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ITVLuisVives.Front.ViewModels;
 
 /// <summary>
 ///     ViewModel principal de la aplicación.
-///     Maneja la navegación interna y las acciones de los menús usando CommunityToolkit.Mvvm.
+///     Maneja la navegación interna y las acciones de los menús usando CommunityToolkit.Mvvm y DI.
 /// </summary>
 public partial class MainWindowViewModel : ObservableObject
 {
@@ -25,7 +26,7 @@ public partial class MainWindowViewModel : ObservableObject
     // ====================================================================
     public MainWindowViewModel()
     {
-        _currentView = new CitasViewModel();
+        _currentView = App.ServiceProvider.GetRequiredService<CitasViewModel>();
     }
 
     // ====================================================================
@@ -35,13 +36,13 @@ public partial class MainWindowViewModel : ObservableObject
     [RelayCommand]
     private void NavegarCitas()
     {
-        CurrentView = new CitasViewModel();
+        CurrentView = App.ServiceProvider.GetRequiredService<CitasViewModel>();
     }
 
     [RelayCommand]
     private void NavegarAcercaDe()
     {
-        var acercaDeWin = new Views.AcercaDeWindow();
+        var acercaDeWin = App.ServiceProvider.GetRequiredService<Views.AcercaDeWindow>();
     
         acercaDeWin.Owner = Application.Current.MainWindow;
     
