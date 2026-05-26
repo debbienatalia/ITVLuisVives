@@ -33,9 +33,12 @@ public class ImportExportService : IImportExportService
 
         var storage = _storageFactory.Crear(path);
 
-        return storage
-            .Salvar(lista, path)
-            .Map(_ => lista.Count);
+        var resultado = storage.Salvar(lista, path);
+
+        if (resultado.IsFailure)
+            return Result.Failure<int, DomainError>(resultado.Error);
+
+        return Result.Success<int, DomainError>(lista.Count);
     }
 
     /// <inheritdoc />
