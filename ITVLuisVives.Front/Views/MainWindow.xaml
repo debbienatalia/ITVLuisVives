@@ -7,6 +7,12 @@
         WindowStartupLocation="CenterScreen"
         Background="#F5F7FA"
         FontFamily="Segoe UI">
+    
+    <Window.InputBindings>
+        <KeyBinding Key="E" Modifiers="Control" Command="{Binding ExportarDatosCommand}" />
+        <KeyBinding Key="I" Modifiers="Control" Command="{Binding ImportarDatosCommand}" />
+        <KeyBinding Key="Q" Modifiers="Control" Command="{Binding SalirCommand}" />
+    </Window.InputBindings>
 
     <Window.Resources>
         <Style x:Key="SidebarButton" TargetType="Button">
@@ -38,7 +44,7 @@
                 <MenuItem Header="📤  _Exportar datos..." Command="{Binding ExportarDatosCommand}" InputGestureText="Ctrl+E"/>
                 <MenuItem Header="📥  _Importar datos..." Command="{Binding ImportarDatosCommand}" InputGestureText="Ctrl+I"/>
                 <Separator />
-                <MenuItem Header="🚪  _Salir" Command="{Binding SalirCommand}" InputGestureText="Alt+F4"/>
+                <MenuItem Header="🚪  _Salir" Command="{Binding SalirCommand}" InputGestureText="Ctrl+Q"/>
             </MenuItem>
             <MenuItem Header="_Ayuda" Foreground="#2C3E50" Margin="5,0">
                 <MenuItem Header="ℹ️  _Acerca de" Command="{Binding NavegarAcercaDeCommand}"/>
@@ -69,6 +75,20 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="📅" FontSize="16" Margin="0,0,12,0" VerticalAlignment="Center"/>
                                 <TextBlock Text="Gestión de Citas" FontSize="14" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource SidebarButton}" Command="{Binding NavegarImportExportCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🔄" FontSize="16" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Importar / Exportar" FontSize="14" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Style="{StaticResource SidebarButton}" Command="{Binding NavegarInformesCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="📊" FontSize="16" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Informes Técnicos" FontSize="14" VerticalAlignment="Center"/>
                             </StackPanel>
                         </Button>
 

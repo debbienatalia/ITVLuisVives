@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ITVLuisVives.Back.Cache;
 using ITVLuisVives.Back.Config;
 using ITVLuisVives.Back.Entity;
+using ITVLuisVives.Back.Factories;
 using ITVLuisVives.Back.Models;
 using ITVLuisVives.Back.Repositories;
 using ITVLuisVives.Back.Storage;
@@ -120,6 +121,13 @@ public static class DependenciesProvider {
             sp.GetRequiredService<ICitaRepository>(),
             sp.GetRequiredService<IValidator<Cita>>()
         ));
+        services.AddSingleton<IStorageFactory, StorageFactory>();
+        services.AddSingleton<IImportExportService, ImportExportService>();        
+        string carpetaDescargas = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+    
+        services.AddSingleton<IReportService>(sp => 
+            new ReportService(carpetaDescargas)
+        );
     }
 
     /// <summary>

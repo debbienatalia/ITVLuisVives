@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="ITVLuisVives.Front.InformesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="800"
+             Background="#F8FAFC">
+
+    <Grid Margin="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,25">
+            <TextBlock Text="Módulo de Informes e Impresión" FontSize="24" FontWeight="Bold" Foreground="#1E293B"/>
+            <TextBlock Text="Generación oficial de fichas vehiculares y listados consolidados en formatos PDF y HTML." Foreground="#64748B" FontSize="13" Margin="0,4,0,0"/>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="20" Margin="0,0,12,0" VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock Text="📄 Ficha de Cita Individual" FontSize="16" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,4"/>
+                    <TextBlock Text="Exporta los datos técnicos de un único vehículo." FontSize="12" Foreground="#94A3B8" Margin="0,0,0,20"/>
+
+                    <TextBlock Text="Matrícula a buscar:" Foreground="#475569" FontWeight="Medium" FontSize="12" Margin="0,0,0,6"/>
+                    <TextBox Text="{Binding MatriculaBuscar, UpdateSourceTrigger=PropertyChanged}" 
+                             FontSize="15" Padding="8" Margin="0,0,0,25" BorderBrush="#CBD5E1" BorderThickness="1"/>
+
+                    <Button Content="Generar Ficha en PDF" Command="{Binding GenerarFichaPdfCommand}" 
+                            Padding="12" Background="#EF4444" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,0,10" Cursor="Hand"/>
+                    
+                    <Button Content="Generar Ficha en HTML" Command="{Binding GenerarFichaHtmlCommand}" 
+                            Padding="12" Background="#3B82F6" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Cursor="Hand"/>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="1" Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="8" Padding="20" Margin="12,0,0,0" VerticalAlignment="Top">
+                <StackPanel>
+                    <TextBlock Text="📊 Listados y Auditorías Globales" FontSize="16" FontWeight="Bold" Foreground="#0F172A" Margin="0,0,0,4"/>
+                    <TextBlock Text="Exporta los datos técnicos del listado completo de vehículos." FontSize="12" Foreground="#94A3B8" Margin="0,0,0,20"/>
+
+                    <StackPanel Margin="0,0,0,25">
+                        <CheckBox IsChecked="{Binding SoloHoy}" Margin="0,0,0,12" Cursor="Hand">
+                            <TextBlock Text="Filtrar únicamente citas del día de hoy" FontSize="13" Foreground="#334155"/>
+                        </CheckBox>
+                        
+                        <CheckBox IsChecked="{Binding IncluirAnuladas}" Cursor="Hand">
+                            <TextBlock Text="Incluir citas anuladas / eliminadas en el reporte" FontSize="13" Foreground="#334155"/>
+                        </CheckBox>
+                    </StackPanel>
+
+                    <Button Content="Exportar Listado PDF Global" Command="{Binding ReporteGlobalPdfCommand}" 
+                            Padding="12" Background="#DC2626" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Margin="0,0,0,10" Cursor="Hand"/>
+                    
+                    <Button Content="Exportar Listado HTML Global" Command="{Binding ReporteGlobalHtmlCommand}" 
+                            Padding="12" Background="#2563EB" Foreground="White" FontWeight="SemiBold" BorderThickness="0" Cursor="Hand"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="2" Background="#E2E8F0" CornerRadius="6" Padding="15,10" VerticalAlignment="Bottom">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Sistema: " Foreground="#475569" FontWeight="Bold" FontSize="12"/>
+                <TextBlock Grid.Column="1" Text="{Binding StatusMessage}" Foreground="#1E293B" FontWeight="Medium" FontSize="12" TextWrapping="Wrap"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

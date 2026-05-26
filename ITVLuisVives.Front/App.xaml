@@ -2,12 +2,23 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:viewModels="clr-namespace:ITVLuisVives.Front.ViewModels"
-             xmlns:views="clr-namespace:ITVLuisVives.Front.Views">
+             xmlns:views="clr-namespace:ITVLuisVives.Front.Views"
+             xmlns:front="clr-namespace:ITVLuisVives.Front">
     <Application.Resources>
         <ResourceDictionary>
+            
             <DataTemplate DataType="{x:Type viewModels:CitasViewModel}">
                 <views:CitasWindow />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:ImportExportViewModel}">
+                <front:ImportExportView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:InformesViewModel}">
+                <front:InformesView />
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

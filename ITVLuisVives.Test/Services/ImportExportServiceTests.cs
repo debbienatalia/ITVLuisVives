@@ -5,6 +5,7 @@ using System.Linq;
 using CSharpFunctionalExtensions;
 using FluentAssertions;
 using ITVLuisVives.Back.Errors;
+using ITVLuisVives.Back.Factories;
 using ITVLuisVives.Back.Models;
 using ITVLuisVives.Back.Services;
 using ITVLuisVives.Back.Storage;
@@ -15,12 +16,21 @@ namespace ITVLuisVives.Back.Test.Services;
 [TestFixture]
 public class ImportExportServiceTests {
     [SetUp]
-    public void SetUp() {
-        _tempDir = Path.Combine(Path.GetTempPath(), $"ImportExportTest_{Guid.NewGuid()}");
+    public void SetUp()
+    {
+        _tempDir = Path.Combine(Path.GetTempPath(),
+            $"ImportExportTest_{Guid.NewGuid()}");
+
         Directory.CreateDirectory(_tempDir);
 
         _storageMock = new Mock<IStorage<Cita>>();
-        _service = new ImportExportService(_storageMock.Object);
+        _factoryMock = new Mock<IStorageFactory>();
+
+        _factoryMock
+            .Setup(f => f.Crear(It.IsAny<string>()))
+            .Returns(_storageMock.Object);
+
+        _service = new ImportExportService(_factoryMock.Object);
     }
 
     [TearDown]
@@ -30,8 +40,9 @@ public class ImportExportServiceTests {
     }
 
     private string _tempDir = null!;
-    private ImportExportService _service = null!;
     private Mock<IStorage<Cita>> _storageMock = null!;
+    private Mock<IStorageFactory> _factoryMock = null!;
+    private ImportExportService _service = null!;
 
     [TestFixture]
     public class CasosPositivos : ImportExportServiceTests {

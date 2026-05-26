@@ -41,6 +41,8 @@ public partial class App : Application
             services.AddTransient<CitasViewModel>();
             services.AddTransient<AcercaDeViewModel>();
             services.AddTransient<AcercaDeWindow>();
+            services.AddTransient<InformesViewModel>();
+            services.AddTransient<ImportExportViewModel>();
         });
 
         Log.Information("Contenedor de dependencias listo.");
